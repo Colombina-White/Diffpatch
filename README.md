@@ -66,7 +66,7 @@ game_4.4.0_4.5.0_hdiff_xxxxx.zip
 game_4.4.0_4.5.0_ldiff_xxxxx.zip
 ```
 
-## Required Files for Distribution
+## Required Files
 
 Include these files from the `publish` folder:
 

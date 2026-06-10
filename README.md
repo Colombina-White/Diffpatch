@@ -19,15 +19,16 @@ WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --
 
 ## ldiff Block 推測
 
-`ldiff` 模式預設會嘗試推測不同檔名的 `.block` 來源。新版預設使用 chunk hash 比對，不只看檔案大小。
+`ldiff` 模式預設會嘗試推測不同檔名的 `.block` 來源。新版預設使用全域 chunk index，不只看檔案大小。
 
 預設值：
 
 ```text
---moved-block-infer-method chunk
+--moved-block-infer-method index
 --moved-block-candidates 16
 --moved-block-chunk-pool 96
 --moved-block-chunk-size 131072
+--moved-block-index-min-score 2
 --moved-block-size-window 0.25
 --moved-block-min-saving-ratio 0.85
 ```
@@ -54,6 +55,12 @@ WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --
 
 ```powershell
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-infer-method size
+```
+
+改用舊版 chunk-pool 排序，不建立全域索引：
+
+```powershell
+WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-infer-method chunk
 ```
 
 ## 輸出檔名

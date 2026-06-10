@@ -1,5 +1,7 @@
 # WhiteUpd
 
+參考：[HappyGenyuanImsactUpdate](https://github.com/YYHEggEgg/HappyGenyuanImsactUpdate)
+
 `WhiteUpd` 用來建立遊戲版本更新包，支援兩種模式：
 
 - `hdiff`: 產生傳統 `hdifffiles.txt` + `.hdiff` / copy 檔案。

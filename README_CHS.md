@@ -1,15 +1,15 @@
 # WhiteUpd
 
-[繁中](README_CHT.md) | [简中](README_CHS.md) | EN
+[繁中](README_CHT.md) | 简中 | [EN](README.md)
 
-Reference: [HappyGenyuanImsactUpdate](https://github.com/YYHEggEgg/HappyGenyuanImsactUpdate)
+参考：[HappyGenyuanImsactUpdate](https://github.com/YYHEggEgg/HappyGenyuanImsactUpdate)
 
-`WhiteUpd` is a command-line tool for creating game update packages. It supports two output modes:
+`WhiteUpd` 是用来制作游戏更新包的命令行工具，支持两种输出模式：
 
-- `hdiff`: generates `hdifffiles.txt`, `.hdiff` files, and falls back to full-file copies when needed.
-- `ldiff`: generates a Sophon-style `manifest` and `ldiff\chunk` payload.
+- `hdiff`：生成 `hdifffiles.txt`、`.hdiff`，必要时直接复制完整文件。
+- `ldiff`：生成 Sophon 类型的 `manifest` 与 `ldiff\chunk`。
 
-## Basic Usage
+## 基本用法
 
 ```powershell
 WhiteUpd.exe hdiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\hdiff --only-include-pkg-defined-files
@@ -19,11 +19,11 @@ WhiteUpd.exe hdiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\hdiff --
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files
 ```
 
-## ldiff Block Inference
+## ldiff Block 推测
 
-`ldiff` builds a chunk index for `.block` files by default. This helps detect old files with different names but similar content, which can reduce the final patch size.
+`ldiff` 默认会对 `.block` 文件建立 chunk index，用来推测“文件名不同但内容相近”的旧文件，让输出的 patch 变小。
 
-Default options:
+默认参数：
 
 ```text
 --moved-block-infer-method index
@@ -35,40 +35,40 @@ Default options:
 --moved-block-min-saving-ratio 0.85
 ```
 
-Increase candidate count:
+提高候选数：
 
 ```powershell
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-candidates 32
 ```
 
-Use 64KB chunks:
+改用 64KB chunk：
 
 ```powershell
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-chunk-size 65536
 ```
 
-Disable moved-block inference:
+关闭搬移 block 推测：
 
 ```powershell
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --no-infer-moved-blocks
 ```
 
-## Output Name
+## 输出文件名
 
 ```text
 <prefix>_<fromVersion>_<toVersion>_<mode>_<random>.zip
 ```
 
-Examples:
+示例：
 
 ```text
 game_4.4.0_4.5.0_hdiff_xxxxx.zip
 game_4.4.0_4.5.0_ldiff_xxxxx.zip
 ```
 
-## Required Files for Distribution
+## 发给别人需要的文件
 
-Include these files from the `publish` folder:
+`publish` 文件夹内建议附上：
 
 - `WhiteUpd.exe`
 - `WhiteUpd.dll`
@@ -82,12 +82,12 @@ Include these files from the `publish` folder:
 - `README_CHT.md`
 - `README_CHS.md`
 
-Do not publish:
+不要公开：
 
 - `WhiteUpd.pdb`
 - `WhiteUpd.protected.dll.map`
 
-## Arguments
+## 参数
 
 ```text
 whiteupd [hdiff|ldiff]

@@ -66,7 +66,7 @@ game_4.4.0_4.5.0_hdiff_xxxxx.zip
 game_4.4.0_4.5.0_ldiff_xxxxx.zip
 ```
 
-## 发给别人需要的文件
+## 需要的文件
 
 `publish` 文件夹内建议附上：
 

@@ -17,37 +17,55 @@ WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --
 
 第一個參數是模式。沒填時預設是 `hdiff`。
 
-## ldiff 推測 block 來源
+## ldiff Block 推測
 
-`ldiff` 模式預設會嘗試推測不同檔名的 `.block` 來源。
+`ldiff` 模式預設會嘗試推測不同檔名的 `.block` 來源。新版預設使用 chunk hash 比對，不只看檔案大小。
 
-可調參數：
+流程：
 
 ```text
---no-infer-moved-blocks
---moved-block-candidates <count>
---moved-block-size-window <ratio>
---moved-block-min-saving-ratio <ratio>
+新版 .block 找不到同路徑舊檔
+-> 從舊版同資料夾、大小接近的 .block 挑一批候選
+-> 把新版和候選切成小 chunk 算 hash
+-> 依照相同 chunk 數量排序
+-> 只對分數最高的幾個候選跑 hdiff
+-> 選最小的 hdiff
+-> 如果比直接當新檔小，就寫入 original_file_name
 ```
 
 預設值：
 
 ```text
+--moved-block-infer-method chunk
 --moved-block-candidates 16
---moved-block-size-window 0.08
+--moved-block-chunk-pool 96
+--moved-block-chunk-size 131072
+--moved-block-size-window 0.25
 --moved-block-min-saving-ratio 0.85
 ```
 
-如果你想測更多候選，可能會變小，但會更慢：
+常用調整：
 
 ```powershell
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-candidates 32
 ```
 
-如果想關掉推測：
+切更小的 64KB chunk：
+
+```powershell
+WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-chunk-size 65536
+```
+
+關掉推測：
 
 ```powershell
 WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --no-infer-moved-blocks
+```
+
+改回只用大小排序：
+
+```powershell
+WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --only-include-pkg-defined-files --moved-block-infer-method size
 ```
 
 ## 輸出檔名
@@ -63,17 +81,14 @@ game_4.4.0_4.5.0_hdiff_xxxxx.zip
 game_4.4.0_4.5.0_ldiff_xxxxx.zip
 ```
 
-`-p` 可以改 prefix：
-
-```powershell
-WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4V1 -to 4.5.0 D:\bak -output_to D:\ldiff -p game --only-include-pkg-defined-files
-```
-
 ## 需要的工具
 
 `publish` 資料夾內需要：
 
 - `WhiteUpd.exe`
+- `WhiteUpd.dll`
+- `WhiteUpd.deps.json`
+- `WhiteUpd.runtimeconfig.json`
 - `hdiffz.exe`
 - `7z.exe`
 - `7z.dll`

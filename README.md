@@ -21,18 +21,6 @@ WhiteUpd.exe ldiff -from 4.4.0 C:\HSR4.4 -to 4.5.0 D:\bak -output_to D:\ldiff --
 
 `ldiff` 模式預設會嘗試推測不同檔名的 `.block` 來源。新版預設使用 chunk hash 比對，不只看檔案大小。
 
-流程：
-
-```text
-新版 .block 找不到同路徑舊檔
--> 從舊版同資料夾、大小接近的 .block 挑一批候選
--> 把新版和候選切成小 chunk 算 hash
--> 依照相同 chunk 數量排序
--> 只對分數最高的幾個候選跑 hdiff
--> 選最小的 hdiff
--> 如果比直接當新檔小，就寫入 original_file_name
-```
-
 預設值：
 
 ```text

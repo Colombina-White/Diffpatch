@@ -68,8 +68,6 @@ game_4.4.0_4.5.0_ldiff_xxxxx.zip
 
 ## 需要的文件
 
-`publish` 文件夹内建议附上：
-
 - `WhiteUpd.exe`
 - `WhiteUpd.dll`
 - `WhiteUpd.deps.json`
@@ -81,11 +79,6 @@ game_4.4.0_4.5.0_ldiff_xxxxx.zip
 - `README.md`
 - `README_CHT.md`
 - `README_CHS.md`
-
-不要公开：
-
-- `WhiteUpd.pdb`
-- `WhiteUpd.protected.dll.map`
 
 ## 参数
 

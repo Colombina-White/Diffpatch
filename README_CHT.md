@@ -76,9 +76,6 @@ game_4.4.0_4.5.0_ldiff_xxxxx.zip
 - `7z.exe`
 - `7z.dll`
 - `zstd.exe`
-- `README.md`
-- `README_CHT.md`
-- `README_CHS.md`
 
 ## 參數
 
